@@ -1,49 +1,45 @@
-import React, { Component } from "react";
-import styles from "./Searchbar.module.css";
+import "./SearchBarStyles.css";
+import { Component } from "react";
 import { toast } from "react-toastify";
-import propTypes from "prop-types";
+import PropTypes from "prop-types";
 
-export default class Searchbar extends Component {
+export default class SearchBar extends Component {
   state = {
-    request: "",
+    input: "",
   };
-
   static propTypes = {
-    onSubmit: propTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
   };
 
-  handleRequestChange = (event) => {
-    this.setState({ request: event.currentTarget.value.toLowerCase() });
+  handleNameChange = (event) => {
+    this.setState({ input: event.currentTarget.value.toLowerCase() });
   };
-
   handleSubmit = (event) => {
     event.preventDefault();
-
-    if (this.state.request.trim() === "") {
-      toast.error("Enter your request");
+    if (this.state.input.trim() === "") {
+      toast.error("Write your request,please");
       return;
     }
-    this.props.onSubmit(this.state.request);
-    this.setState({ request: "" });
+    this.props.onSubmit(this.state.input);
+    this.setState({ input: "" });
   };
 
   render() {
     return (
-      <header className={styles.searchbar}>
-        <form className={styles.searchForm} onSubmit={this.handleSubmit}>
-          <button type="submit" className={styles.button}>
-            <span className={styles.buttonLabel}>Search</span>
+      <header className="Searchbar">
+        <form className="SearchForm" onSubmit={this.handleSubmit}>
+          <button type="submit" className="SearchForm-button">
+            <span className="SearchForm-button-label">Search</span>
           </button>
 
           <input
-            className={styles.input}
-            name="request"
+            className="SearchForm-input"
             type="text"
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
-            value={this.state.request}
-            onChange={this.handleRequestChange}
+            value={this.state.input}
+            onChange={this.handleNameChange}
           />
         </form>
       </header>

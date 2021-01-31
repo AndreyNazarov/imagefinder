@@ -1,24 +1,17 @@
-import styles from "./ImageGallery.module.css";
+import "./ImageGallery.css";
 import ImageGalleryItem from "../ImageGalleryItem/ImageGalleryItem";
-import ButtonLoadMore from "../ButtonLoadMore/ButtonLoadMore";
-import propTypes from "prop-types";
 
-const ImageGallery = ({ images, addPage }) => {
+export default function ImageGallery({ pictures }) {
   return (
-    <div>
-      <ul className={styles.ImageGallery}>
-        {images.map((img) => (
-          <ImageGalleryItem key={img.id} imageData={img}></ImageGalleryItem>
-        ))}
-      </ul>
-      <ButtonLoadMore addPage={addPage}></ButtonLoadMore>
-    </div>
+    <ul className="ImageGallery">
+      {pictures.map((picture, index) => (
+        <ImageGalleryItem
+          src={picture.webformatURL}
+          alt={picture.tags}
+          largePicture={picture.largeImageURL}
+          key={index}
+        />
+      ))}
+    </ul>
   );
-};
-
-ImageGallery.propTypes = {
-  addPage: propTypes.func.isRequired,
-  images: propTypes.arrayOf(propTypes.object.isRequired),
-};
-
-export default ImageGallery;
+}

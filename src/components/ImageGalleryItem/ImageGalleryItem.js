@@ -1,17 +1,34 @@
-import styles from "./ImageGalleryItem.module.css";
-import propTypes from "prop-types";
+import React, { Component } from "react";
+import Modal from "../Modal/Modal";
+import "./ImageGalleryItemStyles.css";
 
-const ImageGalleryItem = ({ imageData }) => {
-  const { largeImageURL, tags } = imageData;
-  return (
-    <li className={styles.ImageGalleryItem}>
-      <img src={largeImageURL} alt={tags} className={styles.image} />
-    </li>
-  );
-};
+export default class ImageGalleryItem extends Component {
+  state = {
+    showModal: false,
+  };
 
-ImageGalleryItem.propTypes = {
-  imageData: propTypes.object.isRequired,
-};
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
+  };
 
-export default ImageGalleryItem;
+  render() {
+    const { src, alt, largePicture } = this.props;
+    const { showModal } = this.state;
+
+    return (
+      <li className="ImageGalleryItem">
+        <img
+          onClick={this.toggleModal}
+          src={src}
+          alt={alt}
+          className="ImageGalleryItemImage"
+        />
+        {showModal && (
+          <Modal onClose={this.toggleModal} src={largePicture} alt={alt} />
+        )}
+      </li>
+    );
+  }
+}
