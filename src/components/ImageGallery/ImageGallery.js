@@ -4,12 +4,12 @@ import ImageGalleryItem from "../ImageGalleryItem/ImageGalleryItem";
 export default function ImageGallery({ pictures }) {
   return (
     <ul className="ImageGallery">
-      {pictures.map((picture, index) => (
+      {pictures.map((picture, id) => (
         <ImageGalleryItem
           src={picture.webformatURL}
           alt={picture.tags}
           largePicture={picture.largeImageURL}
-          key={index}
+          key={id}
         />
       ))}
     </ul>

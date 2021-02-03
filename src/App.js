@@ -1,27 +1,18 @@
-import React, { Component } from "react";
+import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import SearchBar from "./components/SearchBar/SearchBar";
 import PicturesInfo from "./components/PicturesInfo/PicturesInfo";
 
-export default class App extends Component {
-  state = {
-    picturesName: "",
-  };
+export default function App() {
+  const [searchQuery, setPicturesName] = useState("");
 
-  handleSubmitForm = (picturesName) => {
-    this.setState({ picturesName });
-    console.log("request handleSubmitForm App");
-  };
-
-  render() {
-    return (
-      <div>
-        <SearchBar onSubmit={this.handleSubmitForm} />
-        <PicturesInfo picturesName={this.state.picturesName} />
-        <ToastContainer autoClose={2000} />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <SearchBar onSubmit={setPicturesName} />
+      <PicturesInfo searchQuery={searchQuery} />
+      <ToastContainer autoClose={2000} />
+    </div>
+  );
 }
